@@ -1,0 +1,69 @@
+*{
+    box-sizing: border-box;
+}
+.gameboard{
+    margin: 0 auto;
+    width: 700px;
+    height: 550px;
+    position: relative;
+    border: 2px solid gray;
+    overflow: hidden;
+}
+.gameboard img{
+    position: absolute;
+}
+.gameboard .dino{
+    top:360px;
+    right: 530px;
+    width: 160px;
+}
+.gameboard .jumpDino{
+    animation: jumpDino linear 500ms;
+}
+.gameboard .arbusto{
+    top:380px;
+    width: 200px;
+    animation: moveArbusto 1500ms linear infinite;
+}
+.gameboard .mosca{
+    top:300px;
+    width: 260px;
+    animation: moveMosca 2000ms ease-in-out infinite;
+}
+
+@keyframes moveArbusto {
+    0%{
+        right: -160px;
+    }
+    100%{
+        right: 700px;
+    }
+}
+@keyframes moveMosca{
+    0%{
+        right: -160px;
+    }
+    100%{
+        right: 700px;
+    }
+}
+@keyframes jumpDino {
+    0%{
+        top: 360px;
+    }
+    25%{
+        top: 260px;
+    }
+    50%{
+        top: 200px;
+    }
+    75%{
+        top: 200px;
+    }
+    90%{
+        top: 260px;
+    }
+    100%{
+        top: 360px;
+    }
+}
