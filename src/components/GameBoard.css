@@ -28,6 +28,9 @@
 .gameboard .mosca{
     top:300px;
     width: 260px;
+    right: -160px;
+}
+.showMosca{
     animation: moveMosca 2000ms ease-in-out infinite;
 }
 
