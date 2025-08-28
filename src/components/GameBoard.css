@@ -3,35 +3,39 @@
 }
 .gameboard{
     margin: 0 auto;
-    width: 700px;
+    width: 90%;
     height: 550px;
     position: relative;
     border: 2px solid gray;
     overflow: hidden;
+    border-bottom: 13px solid green;
+    background: linear-gradient(180deg, rgb(0, 110, 255), white);
 }
 .gameboard img{
     position: absolute;
 }
 .gameboard .dino{
-    top:360px;
-    right: 530px;
+    top:380px;
+    right: 85%;
     width: 160px;
 }
 .gameboard .jumpDino{
     animation: jumpDino linear 500ms;
 }
 .gameboard .arbusto{
-    top:380px;
+    top:400px;
     width: 200px;
-    animation: moveArbusto 1500ms linear infinite;
 }
 .gameboard .mosca{
-    top:300px;
+    top:340px;
     width: 260px;
-    right: -160px;
+    right: -160px; 
 }
 .showMosca{
-    animation: moveMosca 2000ms ease-in-out infinite;
+    animation: moveMosca 1500ms ease-in-out; 
+}
+.animateArbusto{
+    animation: moveArbusto 1500ms linear infinite;  
 }
 
 @keyframes moveArbusto {
@@ -39,7 +43,7 @@
         right: -160px;
     }
     100%{
-        right: 700px;
+        right: 100%;
     }
 }
 @keyframes moveMosca{
@@ -47,7 +51,7 @@
         right: -160px;
     }
     100%{
-        right: 700px;
+        right: 100%;
     }
 }
 @keyframes jumpDino {
@@ -60,10 +64,16 @@
     50%{
         top: 200px;
     }
+    65%{
+        top: 200px;
+    }
     75%{
         top: 200px;
     }
-    90%{
+    85%{
+        top: 200px;
+    }
+    95%{
         top: 260px;
     }
     100%{

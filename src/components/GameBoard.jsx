@@ -1,12 +1,14 @@
 import dino from '../assets/dinosaur.gif'
 import mosca from '../assets/mosca.webp'
 import arbusto from '../assets/arbusto.png'
+import egg from '../assets/egg.png'
 import './GameBoard.css'
-import { useEffect, useRef, useState } from 'react'
+import { use, useEffect, useRef, useState } from 'react'
 
 const GameBoard = () => {
     const [isJump,setIsJump] = useState(false)
     const [showMosca, setShowMosca] = useState(false)
+    const [animateArbusto,setAnimateArbusto] = useState(true)
     const arbustoRef = useRef(null)
     const dinoRef = useRef(null)
     
@@ -29,9 +31,36 @@ const GameBoard = () => {
         }
     }
 
+    const loserImpact = () =>{
+        const dinoRect = dinoRef.current.getBoundingClientRect();
+        const arbustoRect = arbustoRef.current.getBoundingClientRect();
+        const arbustoRight = window.getComputedStyle(arbustoRef.current).right
+
+        const arbustoHitbox = {
+            top: arbustoRect.top + 40,
+            bottom: arbustoRect.bottom,
+            left: arbustoRect.left + 50, 
+            right: arbustoRect.right - 50, 
+        };
+
+  const collided =
+    dinoRect.left < arbustoHitbox.right &&
+    dinoRect.right > arbustoHitbox.left &&
+    dinoRect.top < arbustoHitbox.bottom &&
+    dinoRect.bottom > arbustoHitbox.top;
+
+        if (collided) {
+            dinoRef.current.src = egg;
+            setAnimateArbusto(false)
+            setShowMosca(false)
+            arbustoRef.current.style.right = arbustoRight
+        }
+    }
+
     useEffect(()=>{
         const myInterval = setInterval(()=>{
             renderMosca()
+            loserImpact()
         },100)
 
         return () => clearInterval(myInterval)
@@ -51,7 +80,7 @@ const GameBoard = () => {
     <div className="gameboard" tabIndex={0} onKeyDown={jump}>
         <img src={dino} alt="" className={isJump ? 'dino jumpDino' : 'dino'} ref={dinoRef}/>
         <img src={mosca} alt="" className={showMosca ? 'mosca showMosca' : 'mosca'}/>
-        <img src={arbusto} alt="" className='arbusto' ref={arbustoRef}/>
+        <img src={arbusto} alt="" className={animateArbusto ? 'arbusto animateArbusto' : 'arbusto'} ref={arbustoRef}/>
     </div>
   )
 }
