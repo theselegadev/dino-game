@@ -37,6 +37,11 @@
 .animateArbusto{
     animation: moveArbusto 1500ms linear infinite;  
 }
+.clouds{
+    width: 350px;
+    top: 100px;
+    animation: moveClouds 6s infinite linear;
+}
 
 @keyframes moveArbusto {
     0%{
@@ -78,5 +83,13 @@
     }
     100%{
         top: 360px;
+    }
+}
+@keyframes moveClouds {
+    0%{
+        right: -350px;
+    }
+    100%{
+        right: 100%;
     }
 }
