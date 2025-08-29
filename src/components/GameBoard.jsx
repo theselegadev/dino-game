@@ -10,6 +10,8 @@ const GameBoard = () => {
     const [isJump,setIsJump] = useState(false)
     const [showMosca, setShowMosca] = useState(false)
     const [animateArbusto,setAnimateArbusto] = useState(true)
+    const [loser,setLoser] = useState(false)
+    const [score,setScore] = useState(0)
     const arbustoRef = useRef(null)
     const dinoRef = useRef(null)
     const moscaRef = useRef(null)
@@ -18,15 +20,15 @@ const GameBoard = () => {
         const arbustoPosition = arbustoRef.current.getBoundingClientRect();
         const dinoPosition = dinoRef.current.getBoundingClientRect();
 
-        if(arbustoPosition.right < dinoPosition.right + 500){
+        if(arbustoPosition.right <= dinoPosition.right + 500 && score > 1000){
             const randomNumber = Math.floor(Math.random() * 10) + 1;
 
             if(randomNumber === 4){
                 setShowMosca(true)
-
+    
                 setTimeout(()=>{
                     setShowMosca(false)
-                },2000)
+                },1500)
             }
         }
     }
@@ -67,21 +69,25 @@ const GameBoard = () => {
             dinoRef.current.src = egg;
             setAnimateArbusto(false)
             setShowMosca(false)
+            setLoser(true)
             arbustoRef.current.style.right = arbustoRight
         }
     }
 
     useEffect(()=>{
         const myInterval = setInterval(()=>{
-            renderMosca()
             loserImpact()
+            renderMosca()
+            
+            if(!loser){
+                setScore(prev => prev + 10)
+            }
         },100)
-
         return () => clearInterval(myInterval)
-    },[])
+    },[loser,score])
 
     const jump = (event)=>{
-        if(event.code === 'Space'){
+        if(event.code === 'Space' && !loser){
             setIsJump(true)
 
             setTimeout(()=>{
@@ -92,6 +98,10 @@ const GameBoard = () => {
 
   return (
     <div className="gameboard" tabIndex={0} onKeyDown={jump}>
+        <div className='score'>
+            <p>Pontos: {score}</p>
+            <p>Melhor score:</p>
+        </div>
         <img src={clouds} alt="" className='clouds'/>
         <img src={dino} alt="" className={isJump ? 'dino jumpDino' : 'dino'} ref={dinoRef}/>
         <img src={mosca} alt="" className={showMosca ? 'mosca showMosca' : 'mosca'} ref={moscaRef}/>
